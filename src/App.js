@@ -1,23 +1,38 @@
-import logo from './logo.svg';
+
+import { Container, Nav, Navbar } from 'react-bootstrap';
+import {
+  BrowserRouter as Router, Link, Route, Switch, Redirect
+} from "react-router-dom";
 import './App.css';
+import UsersDetailsPage from './UserDetailsPage';
+import UsersPage from './UsersPage';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Navbar bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+              <Nav.Link href="#features">Features</Nav.Link>
+              <Nav.Link href="#pricing">Pricing</Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
+
+        <Container>
+          <h3 className="my-4">Demo app...</h3>
+
+          <Switch>
+            
+            <Route exact path="/users" component={UsersPage} />
+            <Route exact path="/users/:id" component={UsersDetailsPage} />
+            <Redirect path="/" to="users" />
+          </Switch>
+        </Container>
+      </Router>
     </div>
   );
 }
