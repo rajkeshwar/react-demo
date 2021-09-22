@@ -1,5 +1,5 @@
 
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import {
   BrowserRouter as Router, Link, Route, Switch, Redirect
 } from "react-router-dom";
@@ -13,7 +13,9 @@ function App() {
       <Router>
         <Navbar bg="dark" variant="dark">
           <Container>
-            <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+            <Navbar.Brand>
+              <Link to="/users" className="text-white">Users App</Link>
+            </Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link href="#home">Home</Nav.Link>
               <Nav.Link href="#features">Features</Nav.Link>
@@ -23,10 +25,7 @@ function App() {
         </Navbar>
 
         <Container>
-          <h3 className="my-4">Demo app...</h3>
-
           <Switch>
-            
             <Route exact path="/users" component={UsersPage} />
             <Route exact path="/users/:id" component={UsersDetailsPage} />
             <Redirect path="/" to="users" />
