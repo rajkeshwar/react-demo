@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import { Card, Spinner, Button, Row, Col } from "react-bootstrap";
+import { Card, Col, Row, Spinner } from "react-bootstrap";
 import {
-  Switch,
-  Route,
-  Link,
   useParams
 } from "react-router-dom";
 
@@ -11,11 +8,8 @@ const UsersDetailsPage = () => {
   const { id } = useParams();
   const [user, setUser] = useState();
 
-
-  console.log('id', id)
-
   useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+    fetch(`http://localhost:8080/users/${id}`)
       .then(resp => resp.json())
       .then(resp => setUser(resp))
   }, [])
@@ -29,15 +23,19 @@ const UsersDetailsPage = () => {
   }
 
   return (
-    <div className="row">
+    <div className="mt-8" style={{marginTop: '2rem'}}>
       <Row>
-
         <Col>
           <Card className="shadow border-0 bg-white">
             <Card.Body>
               <Card.Title>Name: {user.name}</Card.Title>
-              <Card.Text>Email: {user.email}</Card.Text>
-              <Card.Text>Username: {user.username}</Card.Text>
+              <div>
+                <div><b>ID:</b> {user.id}</div>
+                <div><b>Email:</b> {user.email}</div>
+                <div><b>Username:</b> {user.username}</div>
+                <div><b>Phone:</b> {user.phone}</div>
+                <div><b>Website:</b> {user.website}</div>
+              </div>
             </Card.Body>
           </Card>
         </Col>
@@ -46,12 +44,18 @@ const UsersDetailsPage = () => {
           <Card className="shadow border-0 bg-white">
             <Card.Body>
               <Card.Title>Address</Card.Title>
-              <Card.Text>
-                <div><b>Street:</b>{user.address.street}</div>
-                <div><b>Suite:</b>{user.address.suite}</div>
-                <div><b>City:</b>{user.address.city}</div>
-                <div><b>Zip Code:</b>{user.address.zipcode}</div>
-              </Card.Text>
+              {user.address
+                ? (
+                  <div>
+                    <div><b>Street:</b>{user.address.street}</div>
+                    <div><b>Suite:</b>{user.address.suite}</div>
+                    <div><b>City:</b>{user.address.city}</div>
+                    <div><b>Zip Code:</b>{user.address.zipcode}</div>
+                  </div>
+                ) : (
+                  <div>No address found</div>
+                )
+              }
             </Card.Body>
           </Card>
         </Col>
